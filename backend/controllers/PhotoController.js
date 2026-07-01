@@ -18,6 +18,7 @@ const insertPhoto = async (req, res) => {
     title,
     userId: user._id,
     userName: user.name,
+    userImage: user.profileImage,
   });
 
   // if photo was create successfully, return data
@@ -66,7 +67,7 @@ const deletePhoto = async (req, res) => {
 // get all photos
 const getAllPhotos = async (req, res) => {
   const photos = await Photo.find({})
-    .sort([["createAt", -1]])
+    .sort([["createdAt", -1]])
     .exec();
   return res.status(200).json(photos);
 };
@@ -76,7 +77,7 @@ const getUserPhotos = async (req, res) => {
   const { id } = req.params;
 
   const photos = await Photo.find({ userId: id })
-    .sort([["createAt", -1]])
+    .sort([["createdAt", -1]])
     .exec(); // executar
 
   return res.status(200).json(photos);
@@ -146,18 +147,31 @@ const likePhoto = async (req, res) => {
 
   // check if user already liked the photo
   if (photo.likes.includes(reqUser.id)) {
-    res.status(422).json({ errors: ["Você já curtiu a foto."] });
-    return;
+    photo.likes = photo.likes.filter(
+      (userId) => userId.toString() !== reqUser.id,
+    );
+
+    await photo.save();
+
+    return res.status(200).json({
+      photoId: id,
+      userId: reqUser._id,
+      liked: false,
+      message: "Like removido.",
+    });
   }
 
-  // put user id in likes arrays
+  // put user id in likes array
   photo.likes.push(reqUser._id);
 
-  photo.save();
+  await photo.save();
 
-  res
-    .status(200)
-    .json({ photoId: id, userId: reqUser._id, message: "A foto foi curtida." });
+  res.status(200).json({
+    photoId: id,
+    userId: reqUser._id,
+    liked: true,
+    message: "A foto foi curtida.",
+  });
 };
 
 // comment functionality
@@ -184,6 +198,7 @@ const commentPhoto = async (req, res) => {
     userName: user.name,
     userImage: user.profileImage,
     userId: user._id,
+    createdAt: new Date(),
   };
 
   photo.comments.push(userComment);
@@ -213,5 +228,5 @@ module.exports = {
   updatePhoto,
   likePhoto,
   commentPhoto,
-  searchPhotos
+  searchPhotos,
 };

@@ -8,11 +8,18 @@ const LikeContainer = ({ photo, user, handleLike }) => {
       {photo.likes && user && (
         <>
           {photo.likes.includes(user._id) ? (
-            <BsHeartFill />
+            <BsHeartFill
+              className="heart-color"
+              onClick={() => handleLike(photo)}
+            />
           ) : (
-            <BsHeart onClick={() => handleLike(photo)} />
+            <BsHeart color="#e0d7ff" onClick={() => handleLike(photo)} />
           )}
-          <p>{photo.likes.length} like(s)</p>
+          <p>
+            {photo.likes.length === 0 && "0 curtidas"}
+            {photo.likes.length === 1 && "1 curtida"}
+            {photo.likes.length > 1 && `${photo.likes.length} curtidas`}
+          </p>
         </>
       )}
     </div>

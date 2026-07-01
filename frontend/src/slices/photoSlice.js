@@ -2,13 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import photoService from "../services/photoService";
 
 const initialState = {
-  photos: [],
-  photo: {},
+  photos: [], // lista geral
+  photo: {}, // foto individual aberta
   error: false,
   success: false,
   loading: false,
   message: null,
-};
+}
 
 // publish user photo
 export const publishPhoto = createAsyncThunk(
@@ -123,22 +123,28 @@ export const comment = createAsyncThunk(
 );
 
 // get all photos
-export const getPhotos = createAsyncThunk("photo/getall", async (_, thunkAPI) => {
-  const token = thunkAPI.getState().auth.user.token;
+export const getPhotos = createAsyncThunk(
+  "photo/getall",
+  async (_, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
 
-  const data = await photoService.getPhotos(token);
+    const data = await photoService.getPhotos(token);
 
-  return data;
-});
+    return data;
+  },
+);
 
 // search photo by title
-export const searchPhotos = createAsyncThunk("photo/search", async(query, thunkAPI) => {
-  const token = thunkAPI.getState().auth.user.token;
+export const searchPhotos = createAsyncThunk(
+  "photo/search",
+  async (query, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
 
-  const data = await photoService.searchPhotos(query, token);
+    const data = await photoService.searchPhotos(query, token);
 
-  return data;
-})
+    return data;
+  },
+);
 
 // funcoes
 export const photoSlice = createSlice({
@@ -232,15 +238,34 @@ export const photoSlice = createSlice({
         state.success = true;
         state.error = null;
 
+        const { photoId, userId, liked } = action.payload;
+
+        // Atualiza a foto aberta (state.photo)
         if (state.photo.likes) {
-          state.photo.likes.push(action.payload.userId);
+          if (liked) {
+            state.photo.likes.push(userId);
+          } else {
+            state.photo.likes = state.photo.likes.filter(
+              (id) => id.toString() !== userId.toString(),
+            );
+          }
         }
-        state.photos.map((photo) => {
-          if (photo._id === action.payload.photoId) {
-            return photo.likes.push(action.payload.userId);
+
+        // Atualiza a lista de fotos (state.photos)
+        state.photos = state.photos.map((photo) => {
+          if (photo._id === photoId) {
+            return {
+              ...photo,
+              likes: liked
+                ? [...photo.likes, userId]
+                : photo.likes.filter(
+                    (id) => id.toString() !== userId.toString(),
+                  ),
+            };
           }
           return photo;
         });
+
         state.message = action.payload.message;
       })
       .addCase(like.rejected, (state, action) => {
