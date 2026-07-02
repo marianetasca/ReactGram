@@ -30,7 +30,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-        <div className="min-h-[70vh]">
+        <div className="container">
           <Routes>
             <Route
               path="/"

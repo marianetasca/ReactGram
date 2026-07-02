@@ -1,16 +1,44 @@
 #home {
-  width: 50%;
+  width: 90%;
+  max-width: 700px;
   margin: 0 auto;
   padding-top: 2em;
+  margin-top: 60px;
 }
 
-#home .btn {
-  display: block;
-  max-width: 80px;
-  text-align: center;
-  margin: 0.5em 0 2em 0;
+#home #btn {
+  border: 1px solid #7c6fcf;
+  background-color: #16162a;
+  border-radius: 20px;
+  padding: 4px 8px;
+  color: #e0d7ff;
 }
 
+#home #btn:hover {
+    background-color: #232342;
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#post-details {
+  background-color: #16162a;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 10px;
+}
+
+#post-details h3 {
+  padding-bottom: 4px;
+}
+
+.posts {
+  border: 1px solid #2a2750;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
 .no-photos {
   text-align: center;
 }

@@ -37,8 +37,8 @@ const Login = () => {
 
   return (
     <div id="login">
-      <h2>ReactGram</h2>
-      <p className="subtitle">Faça o login para ver o que há de novo.</p>
+      <h2 className="main-color">ReactGram</h2>
+      <p className="secundary-color">Faça o login para ver o que há de novo.</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

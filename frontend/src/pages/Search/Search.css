@@ -1,16 +1,22 @@
 #search {
-    width: 50%;
-    margin: 0 auto;
-    padding-top: 2em;
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-top: 5em;
 }
 
 #search h2 {
-    text-align: center;
+  text-align: center;
+  margin-bottom: 1em;
+}
+#search .photos {
+  margin-bottom: 12px;
 }
 
-#search .btn {
-    display: block;
-    max-width: 80px;
-    text-align: center;
-    margin: 0.5em 0 2em 0;
+#search #btn {
+  border: 1px solid #7c6fcf;
+  background-color: #16162a;
+  border-radius: 20px;
+  padding: 4px 8px;
+  color: #e0d7ff;
 }

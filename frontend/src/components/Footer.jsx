@@ -2,7 +2,7 @@ import './Footer.css'
 
 const Footer = () => {
   return (
-    <footer id="footer" className="bg-[#121212] h-50 flex justify-center items-center border-t-2 border-t-gray-700">
+    <footer id="footer">
         <p>ReactGram &copy; 2026</p>
     </footer>
   )

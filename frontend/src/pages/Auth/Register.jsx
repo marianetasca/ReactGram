@@ -2,7 +2,7 @@ import "./Auth.css";
 
 // components
 import { Link } from "react-router-dom";
-import Message from '../../components/Message'
+import Message from "../../components/Message";
 
 // hooks
 import { useState, useEffect } from "react";
@@ -43,8 +43,10 @@ const Register = () => {
 
   return (
     <div id="register">
-      <h2>ReactGram</h2>
-      <p className="subtitle">Cadastre-se para ver as fotos dos seus amigos.</p>
+      <h2 className="main-color">ReactGram</h2>
+      <p className="secundary-color">
+        Cadastre-se para ver as fotos dos seus amigos.
+      </p>
       <form onSubmit={handlesubmit}>
         <input
           type="text"

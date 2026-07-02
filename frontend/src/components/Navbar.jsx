@@ -2,12 +2,8 @@ import "./Navbar.css";
 
 // components
 import { NavLink, Link } from "react-router-dom";
-import {
-  BsSearch,
-  BsHouseDoorFill,
-  BsFillPersonFill,
-  BsFillCameraFill,
-} from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
+import { HiOutlineHome, HiOutlineCamera, HiOutlineUser } from "react-icons/hi";
 
 // hooks
 import { useState } from "react";
@@ -36,16 +32,20 @@ const Navbar = () => {
   };
 
   const handleSearch = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if(query) {
-      return navigate(`/search?q=${query}`)
+    if (query) {
+      return navigate(`/search?q=${query}`);
     }
-  }
+  };
 
   return (
     <nav id="nav" className="">
-      <Link to="/">ReactGram</Link>
+      <div className="logo-container">
+        <Link to="/" id="logo">
+          ReactGram <div className="logo-dot"></div>
+        </Link>
+      </div>
 
       <form id="search-form" onSubmit={handleSearch}>
         <BsSearch className="" />
@@ -60,25 +60,27 @@ const Navbar = () => {
         {auth ? ( //autenticado
           <>
             <li className="">
-              <NavLink to="/">
-                <BsHouseDoorFill />
+              <NavLink to="/" className={({ isActive }) => isActive ? "active-link" : "nav-link"}>
+                <HiOutlineHome/>
               </NavLink>
             </li>
 
             {user && (
               <li>
-                <NavLink to={`/users/${user._id}`}>
-                  <BsFillCameraFill />
+                <NavLink to={`/users/${user._id}`} className={({ isActive }) => isActive ? "active-link" : "nav-link"}>
+                  <HiOutlineCamera />
                 </NavLink>
               </li>
             )}
             <li>
-              <NavLink to="/profile">
-                <BsFillPersonFill />
+              <NavLink to="/profile" className={({ isActive }) => isActive ? "active-link" : "nav-link"}>
+                <HiOutlineUser/>
               </NavLink>
             </li>
             <li>
-              <span onClick={handleLogout}>Sair</span>
+              <span onClick={handleLogout} className="logout">
+                Sair
+              </span>
             </li>
           </>
         ) : (

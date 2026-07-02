@@ -1,8 +1,8 @@
 #footer {
-  background-color: #121212;
+  background-color: var(--rg-cards);
   height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #363636;
+  border-top: 1px solid var(--rg-border);
 }

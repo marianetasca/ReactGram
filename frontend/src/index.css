@@ -1,10 +1,32 @@
 /* @import "tailwindcss"; */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 body {
-    font-family: "Roboto", sans-serif;
-    background-color: #121212;
-    color: #fafafa;
+  font-family: "Roboto", sans-serif;
+  background-color: #0f0f17;
+  color: #fafafa;
 }
+
+:root {
+  --rg-bg: #0f0f17;
+  --rg-cards: #16162a;
+  --rg-border: #2a2750;
+  --rg-icons: #7c6fcf;
+  --rg-icons-light: #c4b5fd;
+  --rg-title: #e0d7ff;
+  --rg-muted: #5a5580;
+  --rg-avatar-bg: #2e2b50;
+}
+
 a {
   color: #fafafa;
   text-decoration: none;
@@ -12,6 +34,7 @@ a {
 
 .active {
   font-weight: bold;
+  color: #c4b5fd;
 }
 
 ul {
@@ -37,7 +60,7 @@ label span {
 }
 
 input {
-  background-color: #3b3b3b;
+  background-color: #40434a;
   color: #aaa;
   border: 1px solid #555;
   border-radius: 2px;
@@ -53,17 +76,15 @@ input::placeholder {
 .btn,
 button,
 input[type="submit"] {
-  background-color: #0094f6;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
+  background-color: var(--rg-bg);
+  color: #e0d7ff;
+  border: 1px solid var(--rg-icons);
   padding: 10px 8px;
   font-weight: bold;
   cursor: pointer;
-  opacity: 0.8;
   font-size: 1em;
+  border-radius: 20px;
 }
-
 input[type="submit"] {
   margin-top: 1em;
 }
@@ -75,7 +96,7 @@ input:disabled {
 
 button:hover,
 input[type="submit"]:hover {
-  opacity: 1;
+  background-color: #5a5580;
 }
 
 .cancel-btn {

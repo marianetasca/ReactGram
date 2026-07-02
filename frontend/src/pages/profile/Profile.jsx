@@ -5,7 +5,7 @@ import { uploads } from "../../utils/config";
 // components
 import Message from "../../components/Message";
 import { Link } from "react-router-dom";
-import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
+import { BsFillEyeFill, BsPencilFill, BsFillTrash3Fill } from "react-icons/bs";
 
 // hooks
 import { useState, useEffect, useRef } from "react";
@@ -24,7 +24,6 @@ import {
 
 const Profile = () => {
   const { id } = useParams();
-  console.log("ID:", id);
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.user);
@@ -107,27 +106,32 @@ const Profile = () => {
 
     const photoData = {
       title: editTitle,
-      id: editId
-    }
+      id: editId,
+    };
 
-    dispatch(updatePhoto(photoData))
+    dispatch(updatePhoto(photoData));
 
-    resetComponentMessage()
+    resetComponentMessage();
   };
-// open edit form
+  // open edit form
   const handleEdit = (photo) => {
     if (editPhotoForm.current.classList.contains("hide")) {
       hideOrShowForms();
     }
 
-    setEditId(photo._id)
-    setEditTitle(photo.title)
-    setEditImage(photo.image)
+    setEditId(photo._id);
+    setEditTitle(photo.title);
+    setEditImage(photo.image);
   };
 
   const handleCancelEdit = () => {
     hideOrShowForms();
   };
+
+  const totalLikes = photos?.reduce(
+    (total, photo) => total + photo.likes.length,
+    0,
+  );
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -140,17 +144,33 @@ const Profile = () => {
           <img src={`${uploads}/users/${user.profileImage}`} alt={user.name} />
         )}
         <div className="profile-description">
-          <h2>{user.name}</h2>
-          <p>{user.bio}</p>
+          <h2 className="main-color">{user.name}</h2>
+          <p className="secundary-color">{user.bio}</p>
+          <div className="descriptions">
+            <div className="align">
+              {photos && (
+                <p className="main-color number-bold">{photos.length}</p>
+              )}
+              <p className="secundary-color">fotos</p>
+            </div>
+            <div className="align">
+              <p className="main-color number-bold">{totalLikes}</p>
+              {totalLikes >= 0 && (
+                <p className="secundary-color">
+                  {totalLikes === 1 ? "curtida" : "curtidas"}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       {id === userAuth._id && (
         <>
           <div className="new-photo" ref={newPhotoForm}>
-            <h3>Compartilhe algum momento seu:</h3>
+            <p className="main-color">Compartilhe algum momento seu:</p>
             <form onSubmit={submitHandle}>
               <label>
-                <span>Título para a foto:</span>
+                <span className="secundary-color">Título para a foto:</span>
                 <input
                   type="text"
                   placeholder="Insira um título"
@@ -159,7 +179,7 @@ const Profile = () => {
                 />
               </label>
               <label>
-                <span>Imagem:</span>
+                <span className="secundary-color">Imagem:</span>
                 <input type="file" onChange={handleFile} />
               </label>
               {!loadingPhoto && <input type="submit" value="Postar" />}
@@ -192,7 +212,7 @@ const Profile = () => {
         </>
       )}
       <div className="user-photos">
-        <h2>Fotos publicadas:</h2>
+        <p className="main-color">Fotos publicadas:</p>
         <div className="photos-container">
           {photos &&
             photos.map((photo) => (
@@ -209,17 +229,19 @@ const Profile = () => {
                       <BsFillEyeFill />
                     </Link>
                     <BsPencilFill onClick={() => handleEdit(photo)} />
-                    <BsXLg onClick={() => handleDelete(photo._id)} />
+                    <BsFillTrash3Fill onClick={() => handleDelete(photo._id)} />
                   </div>
                 ) : (
-                  <Link className="btn" to={`/photos/${photo._id}`}>
-                    Ver{" "}
-                  </Link>
+                  <div>
+                    <Link className="btn" to={`/photos/${photo._id}`}>
+                      Ver
+                    </Link>
+                  </div>
                 )}
               </div>
             ))}
-          {photos.length === 0 && <p> Ainda não há fotos publicadas </p>}
         </div>
+        {photos.length === 0 && <p> Ainda não há fotos publicadas </p>}
       </div>
     </div>
   );

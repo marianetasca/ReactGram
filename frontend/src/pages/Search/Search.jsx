@@ -40,16 +40,28 @@ const Search = () => {
     return <p>Carregando...</p>;
   }
   return (
-    <div className="search">
+    <div id="search">
       <h2>Você está buscando por: {search}</h2>
       {photos &&
         photos.map((photo) => (
-          <div key={photo._id}>
+          <div key={photo._id} className="photos">
             <PhotoItem photo={photo} />
-            <LikeContainer photo={photo} user={user} handleLike={handleLike} />
-            <Link className="btn" to={`/photos/${photo._id}`}>
-              Ver mais
-            </Link>
+            <div id="post-details">
+              <h3>{photo.title}</h3>
+
+              <div className="details">
+                <div className="likes">
+                  <LikeContainer
+                    photo={photo}
+                    user={user}
+                    handleLike={handleLike}
+                  />
+                </div>
+                <Link id="btn" to={`/photos/${photo._id}`}>
+                  Ver mais
+                </Link>
+              </div>
+            </div>
           </div>
         ))}
       {photos && photos.length === 0 && (

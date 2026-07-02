@@ -81,12 +81,13 @@ const EditProfile = () => {
 
     // update image state
     setProfileImage(image);
+
   };
   
   return (
     <div id="edit-profile">
-      <h2>Edite seus dados</h2>
-      <p className="subtitle">
+      <h2 className="main-color">Edite seus dados</h2>
+      <p className="secundary-color">
         Adicione uma imagem de perfil e conte mais sobre você.
       </p>
       {/* preview da imagem */}
@@ -111,7 +112,7 @@ const EditProfile = () => {
         <input type="email" placeholder="Email" disabled value={email || ""} />
         <label>
           <span>Imagem do Perfil:</span>
-          <input type="file" onChange={handleFile} />
+          <input type="file" onChange={handleFile}/>
         </label>
         <label>
           <span>Bio:</span>
