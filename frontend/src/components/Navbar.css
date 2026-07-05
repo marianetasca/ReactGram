@@ -55,6 +55,7 @@
   width: 100%;
   margin: 0;
   background-color: var(--rg-bg);
+  color: var(--rg-title);
 }
 
 #search-form input::placeholder {
