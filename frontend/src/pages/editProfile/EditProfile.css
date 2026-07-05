@@ -18,5 +18,7 @@
   height: 130px;
   border-radius: 50%;
   margin-bottom: 1em;
+  margin-top: 1em;
   justify-self: center;
+  object-fit: cover;
 }

@@ -13,5 +13,5 @@
 
 .like p {
   margin-left: 6px;
-  color: #7c6fcf;
+  color: var(--rg-icons);
 }

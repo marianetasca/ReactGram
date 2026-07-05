@@ -226,10 +226,10 @@ const Profile = () => {
                 {id === userAuth._id ? (
                   <div className="actions">
                     <Link to={`/photos/${photo._id}`}>
-                      <BsFillEyeFill />
+                      <BsFillEyeFill className="view-hover"/>
                     </Link>
-                    <BsPencilFill onClick={() => handleEdit(photo)} />
-                    <BsFillTrash3Fill onClick={() => handleDelete(photo._id)} />
+                    <BsPencilFill className="edit-hover" onClick={() => handleEdit(photo)} />
+                    <BsFillTrash3Fill className="delete-hover" onClick={() => handleDelete(photo._id)} />
                   </div>
                 ) : (
                   <div>

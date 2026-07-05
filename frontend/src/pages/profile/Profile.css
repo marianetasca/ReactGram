@@ -105,6 +105,15 @@
   margin-bottom: 8px;
 }
 
+.view-hover:hover {
+  color: rgb(95, 149, 255);
+}
+.edit-hover:hover {
+  color: rgb(255, 162, 0);
+}
+.delete-hover:hover {
+  color: red;
+}
 
 @media (min-width: 768px) {
   .photo img {

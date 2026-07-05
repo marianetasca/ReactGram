@@ -86,11 +86,11 @@ const Navbar = () => {
         ) : (
           // nao autenticado
           <>
-            <li className="">
-              <NavLink to="/login">Entrar</NavLink>
+            <li>
+              <NavLink to="/login" className="nav-text">Entrar</NavLink>
             </li>
             <li className="">
-              <NavLink to="/register">Cadastrar</NavLink>
+              <NavLink to="/register" className="nav-text">Cadastrar</NavLink>
             </li>
           </>
         )}
