@@ -6,7 +6,7 @@ import PhotoItem from "../../components/PhotoItem";
 import { Link } from "react-router-dom";
 
 // hooks
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 
@@ -19,12 +19,29 @@ const Home = () => {
   const resetMessage = useResetComponentMessage(dispatch);
 
   const { user } = useSelector((state) => state.auth);
-  const { photos, loading } = useSelector((state) => state.photo);
 
   // load all photos
+  const [page, setPage] = useState(1);
+  const { photos, loading, hasMore } = useSelector((state) => state.photo);
+
   useEffect(() => {
-    dispatch(getPhotos());
-  }, [dispatch]);
+    dispatch(getPhotos(page));
+  }, [dispatch, page]);
+
+  // detecta scroll perto do fim
+  useEffect(() => {
+    const handleScroll = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+
+      if (nearBottom && !loading && hasMore) {
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, hasMore]);
 
   // like a photo
   const handleLike = (photo) => {
@@ -33,15 +50,11 @@ const Home = () => {
     resetMessage();
   };
 
-  if (loading) {
-    return <p>Carregando...</p>;
-  }
-
   return (
     <div id="home">
       {photos &&
-        photos.map((photo) => (
-          <div key={photo._id} className="posts">
+        photos.map((photo, index) => (
+          <div key={photo._id + index} className="posts">
             <PhotoItem photo={photo} />
             <div id="post-details">
               <h3>{photo.title}</h3>
@@ -67,9 +80,9 @@ const Home = () => {
           <Link to={`/users/${user._id}`}>Clique aqui</Link>
         </h2>
       )}
-
+      {loading && <p className="loading-more">Carregando...</p>}
+      {!hasMore && <p className="no-more">Você chegou ao fim!</p>}
     </div>
-    
   );
 };
 

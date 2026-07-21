@@ -66,10 +66,20 @@ const deletePhoto = async (req, res) => {
 
 // get all photos
 const getAllPhotos = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = 6;
+  const skip = (page - 1) * limit;
+
   const photos = await Photo.find({})
     .sort([["createdAt", -1]])
+    .skip(skip)
+    .limit(limit)
     .exec();
-  return res.status(200).json(photos);
+
+  const total = await Photo.countDocuments();
+  const hasMore = page * limit < total;
+
+  return res.status(200).json({ photos, hasMore });
 };
 
 // get user photos
