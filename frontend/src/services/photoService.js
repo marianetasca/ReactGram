@@ -106,11 +106,11 @@ const comment = async (data, id, token) => {
 };
 
 // get all photos
-const getPhotos = async (token) => {
+const getPhotos = async (token, page = 1) => {
   const config = requestConfig("GET", null, token);
 
   try {
-    const res = await fetch(api + "/photos", config)
+    const res = await fetch(api + "/photos?page=" + page, config)
       .then((res) => res.json())
       .catch((res) => res);
 

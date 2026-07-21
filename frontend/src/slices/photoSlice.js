@@ -4,11 +4,12 @@ import photoService from "../services/photoService";
 const initialState = {
   photos: [], // lista geral
   photo: {}, // foto individual aberta
+  hasMore: true,
   error: false,
   success: false,
   loading: false,
   message: null,
-}
+};
 
 // publish user photo
 export const publishPhoto = createAsyncThunk(
@@ -125,10 +126,10 @@ export const comment = createAsyncThunk(
 // get all photos
 export const getPhotos = createAsyncThunk(
   "photo/getall",
-  async (_, thunkAPI) => {
+  async (page = 1, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
 
-    const data = await photoService.getPhotos(token);
+    const data = await photoService.getPhotos(token, page);
 
     return data;
   },
@@ -284,7 +285,10 @@ export const photoSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(getPhotos.pending, (state) => {
+      .addCase(getPhotos.pending, (state, action) => {
+        if (action.meta.arg === 1) {
+          state.photos = [];
+        }
         state.loading = true;
         state.error = false;
       })
@@ -292,7 +296,8 @@ export const photoSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.error = null;
-        state.photos = action.payload;
+        state.photos = [...state.photos, ...action.payload.photos]; // concatena
+        state.hasMore = action.payload.hasMore;
       })
       .addCase(searchPhotos.pending, (state) => {
         state.loading = true;
