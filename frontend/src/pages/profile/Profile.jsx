@@ -242,9 +242,9 @@ const Profile = () => {
                     />
                   </div>
                 ) : (
-                  <div>
-                    <Link className="btn" to={`/photos/${photo._id}`}>
-                      Ver
+                  <div className="actions">
+                    <Link className="btn no-auth" to={`/photos/${photo._id}`}>
+                      Ver mais
                     </Link>
                   </div>
                 )}
