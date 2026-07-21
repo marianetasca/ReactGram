@@ -101,6 +101,9 @@
   margin-bottom: 1em;
 }
 
+.edit {
+  padding: 10px 0;
+}
 .user-photos p {
   margin-bottom: 8px;
 }
