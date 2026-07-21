@@ -6,7 +6,7 @@
 }
 
 .post {
-  border: 1px solid #5a5580;
+  border: 1px solid var(--rg-border);
   border-radius: 10px;
 }
 .message-container {
@@ -24,7 +24,7 @@
   margin-top: 6px;
   margin-bottom: 2em;
   padding-bottom: 1em;
-  border-bottom: 1px solid #363636;
+  border-bottom: 1px solid var(--rg-muted);
 }
 
 .author {
@@ -40,7 +40,7 @@
 }
 
 #post-like {
-  background-color: #16162a;
+  background-color: var(--rg-cards);
 }
 
 .comment-form {
@@ -52,27 +52,27 @@
 .button {
   flex: 1;
   padding: 5px;
-  border: 1px solid #5a5580;
-  background-color: #0f0f17;
+  border: 1px solid var(--rg-muted);
+  background-color: var(--rg-bg);
 }
 
 .comment {
   flex: 8;
   border-radius: 20px;
-  border-color: #5a5580;
-  background-color: #0f0f17;
+  border-color: var(--rg-muted);
+  background-color: var(--rg-bg);
   margin: 0;
 }
 
-.comment input::placeholder {
-  color: #5a5580;
+.comment::placeholder {
+  color: var(--rg-muted);
 }
 
 .comment-list {
-  border: 1px solid #5a5580;
+  border: 1px solid var(--rg-border);
   border-radius: 8px;
   margin-bottom: 4px;
-  background-color: #16162a;
+  background-color: var(--rg-cards);
   padding: 8px;
 }
 
@@ -83,7 +83,7 @@
 }
 
 #hr {
-  border: 0.5px solid #5a5580;
+  border: 0.5px solid var(--rg-muted);
   margin-top: 4px;
   margin-bottom: 7px;
 }
@@ -93,7 +93,7 @@
 }
 .see-more {
   border: 1px solid #7c6fcf;
-  background-color: #16162a;
+  background-color: var(--rg-cards);
   border-radius: 20px;
   padding: 4px 8px;
   color: #e0d7ff;
