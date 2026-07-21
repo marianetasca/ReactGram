@@ -78,6 +78,7 @@
   background-color: rgba(22, 22, 42, 0.8);
   transition: opacity 0.3s initial;
   opacity: 0;
+  cursor: pointer;
 }
 
 .photo:hover img {
@@ -86,10 +87,6 @@
 
 .photo:hover .actions {
   opacity: 1;
-}
-
-.actions svg {
-  cursor: pointer;
 }
 
 .edit-photo {
@@ -101,6 +98,10 @@
   margin-bottom: 1em;
 }
 
+.edit {
+  padding: 10px 0;
+}
+
 .user-photos p {
   margin-bottom: 8px;
 }
@@ -108,11 +109,18 @@
 .view-hover:hover {
   color: rgb(95, 149, 255);
 }
+
 .edit-hover:hover {
   color: rgb(255, 162, 0);
 }
+
 .delete-hover:hover {
   color: red;
+}
+
+.not-auth {
+  font-size: small;
+  padding: 0px 4px;
 }
 
 @media (min-width: 768px) {

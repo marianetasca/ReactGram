@@ -20,6 +20,7 @@ import {
   getUserPhotos,
   deletePhoto,
   updatePhoto,
+  getPhotos,
 } from "../../slices/photoSlice";
 
 const Profile = () => {
@@ -84,6 +85,9 @@ const Profile = () => {
     dispatch(publishPhoto(formData));
 
     setTitle("");
+    setImage(""); 
+    // Limpar o input file
+    e.target.reset();
 
     resetComponentMessage();
   };
@@ -189,7 +193,7 @@ const Profile = () => {
             </form>
           </div>
           <div className="edit-photo hide" ref={editPhotoForm}>
-            <p>Editando: </p>
+            <p className="main-color edit">Editando: </p>
             {editImage && (
               <img src={`${uploads}/photos/${editImage}`} alt={editTitle} />
             )}
@@ -226,15 +230,21 @@ const Profile = () => {
                 {id === userAuth._id ? (
                   <div className="actions">
                     <Link to={`/photos/${photo._id}`}>
-                      <BsFillEyeFill className="view-hover"/>
+                      <BsFillEyeFill className="view-hover" />
                     </Link>
-                    <BsPencilFill className="edit-hover" onClick={() => handleEdit(photo)} />
-                    <BsFillTrash3Fill className="delete-hover" onClick={() => handleDelete(photo._id)} />
+                    <BsPencilFill
+                      className="edit-hover"
+                      onClick={() => handleEdit(photo)}
+                    />
+                    <BsFillTrash3Fill
+                      className="delete-hover"
+                      onClick={() => handleDelete(photo._id)}
+                    />
                   </div>
                 ) : (
-                  <div>
-                    <Link className="btn" to={`/photos/${photo._id}`}>
-                      Ver
+                  <div className="actions">
+                    <Link className="btn no-auth" to={`/photos/${photo._id}`}>
+                      Ver mais
                     </Link>
                   </div>
                 )}
